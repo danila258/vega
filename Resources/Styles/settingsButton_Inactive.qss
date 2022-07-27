@@ -1,4 +1,4 @@
-border-image: url(:/Icons/settings.svg);
+border-image: url(:/Icons/_settings.svg);
 background-color: white;
 border-radius: 20px;
 border-style: outset;

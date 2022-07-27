@@ -3,18 +3,37 @@
 
 #include <QFile>
 #include <QTextStream>
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
-#include <QDebug>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QEventLoop>
 
 
-class Downloader
+class Downloader : public QObject
 {
+    Q_OBJECT
+
 public:
-    Downloader();
+    Downloader(const QString& fileName, const QString& filePath);
 
     QString getDownloadLink();
-    void downloadXLSX(const QString& link);
+    void downloadFile(const QString& url);
+
+private:
+    static QString lineParser(const QString& line);
+
+    QNetworkAccessManager _manager;
+    QString _htmlSite;
+    QString _fileNameXLSX;
+    QString _standardPath;
+    QString _url = "https://vega.fcyb.mirea.ru";
+
+private slots:
+    void slotDownloadSiteFinished();
+    void slotDownloadFileFinished();
+    void slotDownloadError();
+
+signals:
+    void resumeWork();
 };
 
 

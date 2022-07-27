@@ -29,7 +29,7 @@ void dayButton::setActiveStyle()
 }
 
 
-scheduleTab::scheduleTab(QVector<QVector<Lesson*>> schedule, QWidget* parent) : QWidget(parent), _schedule(schedule)
+ScheduleTab::ScheduleTab(QVector<QVector<Lesson*>> schedule, QWidget* parent) : QWidget(parent), _schedule(schedule)
 {
     _scheduleTabLayout->addLayout( createDayBarLayout() );
 
@@ -47,7 +47,7 @@ scheduleTab::scheduleTab(QVector<QVector<Lesson*>> schedule, QWidget* parent) : 
     setLayout(_scheduleTabLayout);
 }
 
-QHBoxLayout* scheduleTab::createDayBarLayout() {
+QHBoxLayout* ScheduleTab::createDayBarLayout() {
     QHBoxLayout* dayBarLayout = new QHBoxLayout();
 
     for (int i = 0; i < _dayName.length(); ++i)
@@ -63,7 +63,7 @@ QHBoxLayout* scheduleTab::createDayBarLayout() {
     return dayBarLayout;
 }
 
-QHBoxLayout* scheduleTab::createWideLayout()
+QHBoxLayout* ScheduleTab::createWideLayout()
 {
     _wideMode = true;
 
@@ -91,7 +91,7 @@ QHBoxLayout* scheduleTab::createWideLayout()
     return wideLayout;
 }
 
-QVBoxLayout* scheduleTab::createNarrowLayout()
+QVBoxLayout* ScheduleTab::createNarrowLayout()
 {
     QDateTime time;
     int weekday = time.currentDateTime().date().dayOfWeek() - 1;    // monday = 0, tuesday = 1 ...
@@ -126,7 +126,7 @@ QVBoxLayout* scheduleTab::createNarrowLayout()
     return narrowLayout;
 }
 
-bool scheduleTab::checkOrientation(int width)
+bool ScheduleTab::checkOrientation(int width)
 {
     #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
 
@@ -149,7 +149,7 @@ bool scheduleTab::checkOrientation(int width)
     #endif
 }
 
-void scheduleTab::resizeEvent(QResizeEvent* event) {
+void ScheduleTab::resizeEvent(QResizeEvent* event) {
     if (checkOrientation( event->size().width() ))
     {
         if (_wideMode)
@@ -195,7 +195,7 @@ void scheduleTab::resizeEvent(QResizeEvent* event) {
     }
 }
 
-void scheduleTab::slotDayButtonClicked()
+void ScheduleTab::slotDayButtonClicked()
 {
     if (_wideMode)    // in wideMode dayQPushButtons not active
     {

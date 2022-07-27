@@ -12,6 +12,6 @@
         <file alias="calendar_fill.svg">Resources/Icons/calendar_fill.svg</file>
         <file alias="calendar.svg">Resources/Icons/calendar.svg</file>
         <file alias="settings_fill.svg">Resources/Icons/settings_fill.svg</file>
-        <file alias="settings.svg">Resources/Icons/settings.svg</file>
+        <file alias="_settings.svg">Resources/Icons/settings.svg</file>
     </qresource>
 </RCC>

@@ -1,25 +1,21 @@
 #include "Parser.h"
 
-void Parser::readXLSX()
+void Parser::readXLSX(const QString& directory, const QString& fileNameXLSX, int groupIndex)
 {
     _rawSchedule.resize(6);
 
     XLDocument doc;
-    std::string path = "/Users/danila/Downloads/2022spr8.xlsx";
-
-    doc.open(path);
-    _table = doc.workbook().worksheet("Table 1");
-
-    QString group = "КМБО-02-21";
+    doc.open( directory.toStdString() + "/" + fileNameXLSX.toStdString() );
+    auto table = doc.workbook().worksheet("Table 1");
 
     int dayIndex = 0;
     int count = 0;
     int number = 0;
-    int rowCount = _table.rowCount();
-    int factor = groupIndex(group);
+    int rowCount = table.rowCount();
+    int factor = groupIndex;
     bool cabinetFlag = false;
 
-    for ( auto& row : _table.rows(3, rowCount - 2) )
+    for ( auto& row : table.rows(3, rowCount - 2) )
     {
         if (row.cells(2, 2).begin()->value().typeAsString() == "integer")
         {
@@ -63,49 +59,32 @@ void Parser::readXLSX()
     doc.close();
 }
 
-int Parser::groupIndex(const QString& group)
+QStringList Parser::groups(const QString& directory, const QString& fileNameXLSX)
 {
-    QString allGroups;
-    int groupIndex = 0;
+    XLDocument doc;
+    doc.open( directory.toStdString() + "/" + fileNameXLSX.toStdString() );
+    auto _table = doc.workbook().worksheet("Table 1");
 
-    for (auto& row : _table.rows(2))
-    {
-        for (auto& cell : row.cells(1))
-        {
-            allGroups = QString::fromStdString( cell.value().get<std::string>() );
-        }
-    }
+    QStringList allGroups;
+    QList tokens = QString::fromStdString( _table.row(2).cells(1).begin()->value().get<std::string>() ).split(" ");
 
-    QList result = allGroups.split(" ");
-
-    for (auto& item : result)
+    for (auto& item : tokens)
     {
         if ( item.isEmpty() )
         {
             continue;
         }
 
-        if (item == group)
-        {
-            return groupIndex;
-        }
-
-        ++groupIndex;
+        allGroups.append(item);
     }
 
-    return 0;
+    doc.close();
+    return allGroups;
 }
 
-void Parser::writeXML()
+void Parser::writeXML(const QString& directory, const QString& fileNameXML)
 {
-    QString path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-
-    if ( path.isEmpty() )
-    {
-        return;
-    }
-
-    QFile file(path + "/" + _fileNameXML);
+    QFile file(directory + "/" + fileNameXML);
 
     if ( !file.open(QIODevice::WriteOnly) )
     {
@@ -144,7 +123,8 @@ void Parser::writeXML()
                 QString line;
                 bool flag = true;
 
-                while ( '0' <= name[0] && name[0] <= '9' || name[0] == ',' || name[0] == "н"[0] || name[0] == ' ')
+                while ( ('0' <= name[0] && name[0] <= '9') || name[0] == ',' || name[0] == QString::fromStdString("н")
+                    || name[0] == ' ')
                 {
                     if ('0' <= name[0] && name[0] <= '9')
                     {
@@ -214,16 +194,10 @@ void Parser::writeXML()
     stream.writeEndDocument();
 }
 
-QVector<QVector<Lesson*>> Parser::readXML()
+QVector<QVector<Lesson*>> Parser::readXML(const QString& directory, const QString& fileNameXML, int userSubgroup,
+                                          int userWeek)
 {
-    QString path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-
-    if ( path.isEmpty() )
-    {
-        //return;
-    }
-
-    QFile file(path + "/" + _fileNameXML);
+    QFile file(directory + "/" + fileNameXML);
 
     if ( !file.open(QIODevice::ReadOnly) )
     {
@@ -277,7 +251,29 @@ QVector<QVector<Lesson*>> Parser::readXML()
             }
             else if (token == "lesson")
             {
-                schedule[index].push_back(new Lesson{number.toInt(), name, cabinet});
+                bool flagSubgroup;
+
+                if ( !name.contains("Англ") )
+                {
+                    flagSubgroup = (subgroup == QString::number(userSubgroup) || subgroup.isEmpty() );
+                }
+                else
+                {
+                    flagSubgroup = true;
+                }
+
+                bool flagWeek = false;
+
+                if ( (week == "I" && userWeek % 2 == 1) || (week == "II" && userWeek % 2 == 0) ||
+                    (week.contains(QString::number(userWeek))) || week.isEmpty() )
+                {
+                    flagWeek = true;
+                }
+
+                if (flagSubgroup && flagWeek)
+                {
+                    schedule[index].push_back(new Lesson{number.toInt(), name, cabinet});
+                }
             }
         }
     }

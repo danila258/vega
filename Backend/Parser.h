@@ -9,7 +9,6 @@ using namespace OpenXLSX;
 #include <QFile>
 #include <QXmlStreamWriter>
 #include <QXmlStreamReader>
-#include <QStandardPaths>
 #include <QDebug>
 
 
@@ -26,16 +25,14 @@ class Parser
 public:
     Parser() = default;
 
-    void readXLSX();
-    void writeXML();
-    QVector<QVector<Lesson*>> readXML();
+    void readXLSX(const QString& directory, const QString& fileNameXLSX, int groupIndex);
+    void writeXML(const QString& directory, const QString& fileNameXML);
+    static QStringList groups(const QString& directory, const QString& fileNameXLSX);
+    static QVector<QVector<Lesson*>> readXML(const QString& directory, const QString& fileNameXML, int userSubgroup,
+                                             int userWeek);
 
 private:
-    int groupIndex(const QString& group);
-
-    XLWorksheet _table;
     QVector<QVector<Lesson*>> _rawSchedule;
-    QString _fileNameXML = "Schedule.xml";
 };
 
 

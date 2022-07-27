@@ -2,9 +2,13 @@
 #define MAINWIDGET_H
 
 #include "ScheduleTab.h"
+#include "SettingsTab.h"
 #include "Backend/Parser.h"
 #include "Backend/Downloader.h"
 
+#include <QStandardPaths>
+#include <QApplication>
+#include <QSettings>
 
 class tabButton : public QPushButton
 {
@@ -63,10 +67,24 @@ public:
 private:
     QHBoxLayout* createTabBarLayout();
     void appConfig();
+    void saveSettingsFromTab();
 
-    QLayout* _mainLayout;
-    scheduleTab* _scheduleTab;
+    QVBoxLayout* _mainLayout;
+    ScheduleTab* _scheduleTab;
     int _currentTabIndex;
+
+    QSettings _settings;
+    QString _standardPath;
+    QString _url;
+    int _groupIndex;
+    int _subgroup;
+    int _week;
+
+    QString _fileNameXLSX = "Schedule.xlsx";
+    QString _fileNameXML = "Data.xml";
+
+protected:
+    void closeEvent(QCloseEvent* event) override;
 
 private slots:
     void slotTabButtonClicked();

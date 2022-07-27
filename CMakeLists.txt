@@ -13,8 +13,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_PREFIX_PATH "/Users/danila/Qt/6.2.4/macos/lib/cmake")
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Network Concurrent)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network Concurrent)
 
 qt_add_resources(SOURCES Resources.qrc)
 
@@ -27,11 +27,12 @@ set(PROJECT_SOURCES
         UI/MainWidget.h
         UI/ScheduleTab.cpp
         UI/ScheduleTab.h
+        UI/SettingsTab.cpp
+        UI/SettingsTab.h
         Backend/Parser.h
         Backend/Parser.cpp
         Backend/Downloader.h
-        Backend/Downloader.cpp
-)
+        Backend/Downloader.cpp)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Vega
@@ -56,7 +57,7 @@ else()
     endif()
 endif()
 
-target_link_libraries(Vega PRIVATE Qt${QT_VERSION_MAJOR}::Widgets OpenXLSX::OpenXLSX)
+target_link_libraries(Vega PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt6::Network Qt6::Concurrent OpenXLSX::OpenXLSX)
 
 set_target_properties(Vega PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

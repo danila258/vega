@@ -43,12 +43,12 @@ public:
 };
 
 
-class scheduleTab : public QWidget
+class ScheduleTab : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit scheduleTab(QVector<QVector<Lesson*>> schedule, QWidget* parent = nullptr);
+    explicit ScheduleTab(QVector<QVector<Lesson*>> schedule, QWidget* parent = nullptr);
 
 private:
     QHBoxLayout* createDayBarLayout();
