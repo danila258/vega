@@ -1,7 +1,9 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
-#include <Backend/Parser.h>
+#include "Backend/Parser.h"
+#include "CommonFunctions.h"
+
 #include <QWidget>
 #include <QLayout>
 #include <QPushButton>
@@ -10,8 +12,7 @@
 #include <QDir>
 #include <QDateTime>
 #include <QResizeEvent>
-#include <QGuiApplication>
-#include <QScreen>
+#include <QSizePolicy>
 
 
 enum
@@ -48,17 +49,14 @@ class ScheduleTab : public QWidget
     Q_OBJECT
 
 public:
-    explicit ScheduleTab(QVector<QVector<Lesson*>> schedule, QWidget* parent = nullptr);
+    explicit ScheduleTab(const QVector<QVector<Lesson*>>& schedule, QWidget* parent = nullptr);
 
 private:
-    QHBoxLayout* createDayBarLayout();
-
+    QHBoxLayout* createDayBarLayout();      // top buttons
     QHBoxLayout* createWideLayout();        // horizontal position of the phone or monitor
     QVBoxLayout* createNarrowLayout();      // vertical position of the phone or monitor
 
-    bool checkOrientation(int width);       // return true if horizontal orientation
-
-    QVBoxLayout* _scheduleTabLayout = new QVBoxLayout();
+    QVBoxLayout* _scheduleTabLayout;
 
     bool _wideMode;                         // true - wide layout, false - narrow layout
     int _currentWeekday = None;             // if the narrow layout is equal to the index of the active button

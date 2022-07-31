@@ -1,0 +1,37 @@
+OpenXLSX_autogen/timestamp: \
+	/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in \
+	/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakePackageConfigHelpers.cmake \
+	/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CheckCCompilerFlag.cmake \
+	/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CheckCSourceCompiles.cmake \
+	/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CheckCXXCompilerFlag.cmake \
+	/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CheckCXXSourceCompiles.cmake \
+	/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/GNUInstallDirs.cmake \
+	/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/GenerateExportHeader.cmake \
+	/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Internal/CheckCompilerFlag.cmake \
+	/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Internal/CheckSourceCompiles.cmake \
+	/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/WriteBasicConfigVersionFile.cmake \
+	/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/exportheader.cmake.in \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/CMakeLists.txt \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/OpenXLSXConfig.cmake \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLCell.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLCellIterator.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLCellRange.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLCellReference.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLCellValue.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLColor.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLColumn.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLContentTypes.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLDateTime.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLDocument.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLFormula.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLProperties.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLRelationships.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLRow.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLRowData.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLSharedStrings.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLSheet.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLWorkbook.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLXmlData.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLXmlFile.cpp \
+	/Users/danila/code_c++/vega/Vega/Backend/OpenXLSX/sources/XLZipArchive.cpp \
+	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake

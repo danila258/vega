@@ -1,0 +1,17 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/danila/code_c++/vega/Vega -B /Users/danila/code_c++/vega/Vega/cmake-build-debug
+-- Configuring done
+CMake Error at /Users/danila/Qt/6.2.4/macos/lib/cmake/Qt6Core/Qt6CoreMacros.cmake:559 (add_executable):
+  Cannot find source file:
+
+    /Users/danila/code_c++/vega/Vega/Resources/App_icon/Apple/Vega.icns
+
+  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .mpp .m .M .mm .ixx .cppm .h
+  .hh .h++ .hm .hpp .hxx .in .txx .f .F .for .f77 .f90 .f95 .f03 .hip .ispc
+Call Stack (most recent call first):
+  /Users/danila/Qt/6.2.4/macos/lib/cmake/Qt6Core/Qt6CoreMacros.cmake:523 (_qt_internal_create_executable)
+  /Users/danila/Qt/6.2.4/macos/lib/cmake/Qt6Core/Qt6CoreMacros.cmake:933 (qt6_add_executable)
+  CMakeLists.txt:45 (qt_add_executable)
+
+
+-- Generating done
+CMake Generate step failed.  Build files cannot be regenerated correctly.

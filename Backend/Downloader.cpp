@@ -4,7 +4,7 @@ Downloader::Downloader(const QString& fileName, const QString& filePath)
     : _fileNameXLSX(fileName), _standardPath(filePath)
 {}
 
-QString Downloader::getDownloadLink()
+QString Downloader::getDownloadUrl()
 {
     QNetworkReply* reply = _manager.get(QNetworkRequest(QUrl(_url)));
     connect(reply, SIGNAL( finished() ), SLOT( slotDownloadSiteFinished() ));
@@ -22,7 +22,7 @@ QString Downloader::getDownloadLink()
 
         if (line.contains("xlsx"))
         {
-            return lineParser(line);
+            return parsingLine(line);
         }
     }
 
@@ -40,7 +40,7 @@ void Downloader::downloadFile(const QString& url)
     pause.exec();
 }
 
-QString Downloader::lineParser(const QString& line)
+QString Downloader::parsingLine(const QString& line)
 {
     QString link;
     bool flag = false;

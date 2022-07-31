@@ -15,11 +15,11 @@ class Downloader : public QObject
 public:
     Downloader(const QString& fileName, const QString& filePath);
 
-    QString getDownloadLink();
+    QString getDownloadUrl();      // download site and search url in file
     void downloadFile(const QString& url);
 
 private:
-    static QString lineParser(const QString& line);
+    static QString parsingLine(const QString& line);     // search url in line
 
     QNetworkAccessManager _manager;
     QString _htmlSite;
@@ -33,7 +33,7 @@ private slots:
     void slotDownloadError();
 
 signals:
-    void resumeWork();
+    void resumeWork();      // emit when download is finished
 };
 
 

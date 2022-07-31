@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(Vega VERSION 0.1 LANGUAGES CXX)
+project(Vega VERSION 1.0 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -29,44 +29,80 @@ set(PROJECT_SOURCES
         UI/ScheduleTab.h
         UI/SettingsTab.cpp
         UI/SettingsTab.h
-        Backend/Parser.h
+        UI/CommonFunctions.cpp
+        UI/CommonFunctions.h
         Backend/Parser.cpp
-        Backend/Downloader.h
-        Backend/Downloader.cpp)
+        Backend/Parser.h
+        Backend/Downloader.cpp
+        Backend/Downloader.h)
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+if (APPLE)
+    # set icon
+    set(MACOSX_BUNDLE_ICON_FILE Vega.icns)
+    set(app_icon_macos "${CMAKE_CURRENT_SOURCE_DIR}/Resources/App_icon/Apple/Vega.icns")
+    set_source_files_properties(${app_icon_macos} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+
     qt_add_executable(Vega
+        MACOSX_BUNDLE
         MANUAL_FINALIZATION
+        ${app_icon_macos}
         ${PROJECT_SOURCES}
     )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET Vega APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
-else()
-    if(ANDROID)
-        add_library(Vega SHARED
-            ${PROJECT_SOURCES}
-        )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    else()
-        add_executable(Vega
-            ${PROJECT_SOURCES}
-        )
-    endif()
 endif()
+
+#if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+#    qt_add_executable(Vega
+#        MACOSX_BUNDLE
+#        ${app_icon_macos}
+#        MANUAL_FINALIZATION
+#        ${PROJECT_SOURCES}
+#    )
+#else()
+#    if(ANDROID)
+#        add_library(Vega SHARED
+#            ${PROJECT_SOURCES}
+#        )
+#    else()
+#        qt_add_executable(Vega
+#            MACOSX_BUNDLE
+#            ${app_icon_macos}
+#            ${PROJECT_SOURCES}
+#        )
+#    endif()
+#endif()
 
 target_link_libraries(Vega PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt6::Network Qt6::Concurrent OpenXLSX::OpenXLSX)
 
+if (APPLE)
+
+    set_target_properties(Vega PROPERTIES
+        MACOSX_BUNDLE TRUE
+        MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
+        MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+        MACOSX_BUNDLE_EXECUTABLE_NAME Vega
+        MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+
+        XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY "1,2"
+        XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER my.example.com
+        XCODE_ATTRIBUTE_EXECUTABLE_NAME Vega
+    )
+
+    # xcode did not find the library
+    add_custom_target(lib_linking WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+
+    add_custom_command(TARGET lib_linking PRE_BUILD
+      COMMAND ln -sF ${CMAKE_BINARY_DIR}/Backend/OpenXLSX/Debug-${CMAKE_OSX_SYSROOT}
+      ${CMAKE_BINARY_DIR}/Backend/OpenXLSX/Debug
+    )
+
+    add_dependencies(Vega lib_linking)
+
+endif()
+
 set_target_properties(Vega PROPERTIES
-    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
-    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(Vega)
+    qt_finalize_executable(Vega Icon)
 endif()

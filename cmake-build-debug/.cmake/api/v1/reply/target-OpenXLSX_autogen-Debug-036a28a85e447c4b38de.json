@@ -1,0 +1,75 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"Backend/OpenXLSX/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"id" : "OpenXLSX_autogen_timestamp_deps::@02b6ec18b9890293bcb0"
+		}
+	],
+	"folder" : 
+	{
+		"name" : "libs"
+	},
+	"id" : "OpenXLSX_autogen::@02b6ec18b9890293bcb0",
+	"isGeneratorProvided" : true,
+	"name" : "OpenXLSX_autogen",
+	"paths" : 
+	{
+		"build" : "Backend/OpenXLSX",
+		"source" : "Backend/OpenXLSX"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1,
+				2
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "cmake-build-debug/Backend/OpenXLSX/CMakeFiles/OpenXLSX_autogen",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "cmake-build-debug/Backend/OpenXLSX/CMakeFiles/OpenXLSX_autogen.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "cmake-build-debug/Backend/OpenXLSX/OpenXLSX_autogen/timestamp.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}

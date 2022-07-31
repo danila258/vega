@@ -25,38 +25,36 @@ int tabButton::getIndex()
     return _index;
 }
 
-MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
+MainWidget::MainWidget(QWidget* parent) : QWidget(parent), _mainLayout( new QVBoxLayout() )
 {
-    _settings.clear();
     appConfig();
 
-    _mainLayout = new QVBoxLayout();
+    this->setFixedHeight( this->height() );
 
     Downloader downloader(_fileNameXLSX, _standardPath);
-    QString url = downloader.getDownloadLink();
+    QString url = "https://drive.google.com/uc?export=download&confirm=no_antivirus&id=1z182gKijuQpnkPvYJ9S3d6ERBW8_QFZY";
 
-    _fileNameXLSX = "2022spr8.xlsx";
     Parser parser;
 
-    if ( _url != url || !_settings.contains("groupIndex") )
+    if ( _url != url || !_settings.contains("/Settings/groupIndex") )
     {
-        _url = std::move(url);
+        _url = url;
         downloader.downloadFile(_url);
 
         parser.readXLSX(_standardPath, _fileNameXLSX, _groupIndex);
         parser.writeXML(_standardPath, _fileNameXML);
     }
 
-    if ( !_settings.contains("groupIndex") )
+    if ( !_settings.contains("/Settings/groupIndex") )
     {
-        SettingsTab* settingsTab = new SettingsTab(parser.groups(_standardPath, _fileNameXLSX), _groupIndex,
-                                                   _subgroup, _week, this);
+        SettingsTab* settingsTab = new SettingsTab(parser.groups(_standardPath, _fileNameXLSX), _groupIndex, _subgroup,
+                                                   _week, this);
         _mainLayout->addWidget(settingsTab);
         _currentTabIndex = 1;
     }
     else
     {
-        _scheduleTab = new ScheduleTab( parser.readXML(_standardPath, _fileNameXML, _subgroup, _week) );
+        _scheduleTab = new ScheduleTab(parser.readXML(_standardPath, _fileNameXML, _subgroup, _week), this);
 
         _mainLayout->addWidget(_scheduleTab);
         _currentTabIndex = 0;
@@ -104,14 +102,14 @@ void MainWidget::appConfig()
         }
     }
 
-    _settings.beginGroup("/SettingsTab");
+    _settings.beginGroup("/Settings");
 
     _url = _settings.value("url", "").toString();
     _groupIndex = _settings.value("groupIndex", 0).toInt();
     _subgroup = _settings.value("subgroup", 1).toInt();
     _week = _settings.value("week", 1).toInt();
-    this->move(_settings.value("position", this->pos()).toPoint() );
-    this->resize(_settings.value("geometry", this->size()).toSize() );
+    this->move( _settings.value("position", this->pos()).toPoint() );
+    this->resize( _settings.value("geometry", this->size()).toSize() );
 
     _settings.endGroup();
 }
@@ -126,14 +124,23 @@ void MainWidget::saveSettingsFromTab()
 
 void MainWidget::closeEvent(QCloseEvent* event)
 {
-    _settings.beginGroup("/SettingsTab");
+    if (_currentTabIndex == 1)
+    {
+        this->saveSettingsFromTab();
+
+        Parser parser;
+        parser.readXLSX(_standardPath, _fileNameXLSX, _groupIndex);
+        parser.writeXML(_standardPath, _fileNameXML);
+    }
+
+    _settings.beginGroup("/Settings");
 
     _settings.setValue("url", _url);
     _settings.setValue("groupIndex", _groupIndex);
     _settings.setValue("subgroup", _subgroup);
     _settings.setValue("week", _week);
     _settings.setValue("position", this->pos());
-    //_settings.setValue("geometry", this->size());
+    _settings.setValue("geometry", this->size());
 
     _settings.endGroup();
 }

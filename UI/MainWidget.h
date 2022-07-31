@@ -3,12 +3,15 @@
 
 #include "ScheduleTab.h"
 #include "SettingsTab.h"
+#include "CommonFunctions.h"
 #include "Backend/Parser.h"
 #include "Backend/Downloader.h"
 
 #include <QStandardPaths>
 #include <QApplication>
 #include <QSettings>
+#include <QEvent>
+
 
 class tabButton : public QPushButton
 {
@@ -65,8 +68,8 @@ public:
     explicit MainWidget(QWidget* parent = nullptr);
 
 private:
-    QHBoxLayout* createTabBarLayout();
-    void appConfig();
+    QHBoxLayout* createTabBarLayout();      // bottom buttons
+    void appConfig();                       // load settings and check app directory
     void saveSettingsFromTab();
 
     QVBoxLayout* _mainLayout;
@@ -74,7 +77,7 @@ private:
     int _currentTabIndex;
 
     QSettings _settings;
-    QString _standardPath;
+    QString _standardPath;      // app directory
     QString _url;
     int _groupIndex;
     int _subgroup;
@@ -85,6 +88,27 @@ private:
 
 protected:
     void closeEvent(QCloseEvent* event) override;
+
+    void paletteEvent(QEvent* event)
+    {
+            qDebug() << event->type();
+    }
+
+    void palette2Event(QEvent* event)
+    {
+        if (event->type() == QEvent::StyleChange)
+        {
+            qDebug() << "смена темы 2";
+        }
+    }
+
+    void palette3Event(QEvent* event)
+    {
+        if (event->type() == QEvent::UpdateRequest)
+        {
+            qDebug() << "смена темы 3";
+        }
+    }
 
 private slots:
     void slotTabButtonClicked();
