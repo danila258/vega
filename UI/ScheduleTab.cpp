@@ -153,9 +153,10 @@ QString ScheduleTab::getFormatText(Lesson* lesson)
     }
 
     return QString("<table width=\"100%\">\
-                    <td width=\"50%\" align=\"left\"><pre>%1</pre></td>\
-                    <td width=\"50%\" align=\"right\">%2</td>\
-                    </table>").arg(time + lesson->_name).arg(lesson->_cabinet);
+                    <td width=\"10%\" valign=\"middle\" align=\"left\"><pre>%1</pre></td>\
+                    <td width=\"80%\" valign=\"middle\" align=\"left\"><pre>%2</pre></td>\
+                    <td width=\"10%\" valign=\"middle\" align=\"right\"><pre>%3</pre></td>\
+                    </table>").arg(time).arg(lesson->_name).arg(lesson->_cabinet);
 }
 
 int ScheduleTab::getWeekdayNumber()

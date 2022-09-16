@@ -44,8 +44,8 @@ private:
     int _currentWeekday = NONE;             // if the narrow layout - is equal to the index of the active button
 
     std::array<QString, 6> _dayName = {"Пн", "Вт", "Ср", "Чт", "Пт", "Сб"};
-    std::array<QString, 7> _lessonTime = {" 9:00 - 10:30", "10:40 - 12:10", "12:40 - 14:10", "14:20 - 15:50",
-                                          "16:20 - 17:50", "18:00 - 19:30", "19:40 - 21:00"};
+    std::array<QString, 7> _lessonTime = {" 9:00\n10:30", "10:40\n12:10", "12:40\n14:10", "14:20\n15:50",
+                                          "16:20\n17:50", "18:00\n19:30", "19:40\n21:00"};
     QVector<QVector<Lesson*>> _schedule;
 
 protected:

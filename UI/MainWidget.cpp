@@ -47,8 +47,8 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent), _mainLayout( new QVBo
     }
     else
     {
-        ScheduleTab* scheduleTab = new ScheduleTab(parser.readXML(_standardPath, _fileNameXML, _subgroup, _currentWeekNumber),
-                                       _showEmptyLessons, this);
+        ScheduleTab* scheduleTab = new ScheduleTab(parser.readXML(_standardPath, _fileNameXML, _subgroup,
+                                                                  _currentWeekNumber), _showEmptyLessons, this);
         _mainLayout->addWidget(scheduleTab);
         _currentTabIndex = SCHEDULE_TAB_INDEX;
     }
