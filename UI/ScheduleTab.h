@@ -1,7 +1,10 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
-#include <Backend/Parser.h>
+#include "Backend/Parser.h"
+#include "CustomElements.h"
+#include "CommonFunctions.h"
+
 #include <QWidget>
 #include <QLayout>
 #include <QPushButton>
@@ -10,36 +13,13 @@
 #include <QDir>
 #include <QDateTime>
 #include <QResizeEvent>
-#include <QGuiApplication>
-#include <QScreen>
+#include <QSizePolicy>
 
+#include <array>
 
 enum
 {
-    None = -1, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
-};
-
-
-class scheduleLabel : public QLabel
-{
-    Q_OBJECT
-
-public:
-    explicit scheduleLabel(const QString& str, QWidget* parent = nullptr);
-};
-
-
-class dayButton : public QPushButton
-{
-    Q_OBJECT
-
-public:
-    explicit dayButton(const QString& str, int weekday, QWidget* parent = nullptr);
-
-    void setInactiveStyle();    // it turns white
-    void setActiveStyle();      // it turns accent color
-
-    int _weekday;               // weekday = button index
+    NONE = -1, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
 };
 
 
@@ -48,26 +28,28 @@ class ScheduleTab : public QWidget
     Q_OBJECT
 
 public:
-    explicit ScheduleTab(QVector<QVector<Lesson*>> schedule, QWidget* parent = nullptr);
+    explicit ScheduleTab(const QVector<QVector<Lesson*>>& schedule, bool showEmptyLessons, QWidget* parent = nullptr);
 
 private:
-    QHBoxLayout* createDayBarLayout();
+    QHBoxLayout* createDayBarLayout();       // top buttons
+    QHBoxLayout* createWideLayout();         // horizontal position of the phone or monitor
+    QVBoxLayout* createNarrowLayout();       // vertical position of the phone or monitor
+    QString getFormatText(Lesson* lesson);   // return html text
+    int getWeekdayNumber();
 
-    QHBoxLayout* createWideLayout();        // horizontal position of the phone or monitor
-    QVBoxLayout* createNarrowLayout();      // vertical position of the phone or monitor
-
-    bool checkOrientation(int width);       // return true if horizontal orientation
-
-    QVBoxLayout* _scheduleTabLayout = new QVBoxLayout();
+    QVBoxLayout* _scheduleTabLayout;
 
     bool _wideMode;                         // true - wide layout, false - narrow layout
-    int _currentWeekday = None;             // if the narrow layout is equal to the index of the active button
+    bool _showEmptyLessons;
+    int _currentWeekday = NONE;             // if the narrow layout - is equal to the index of the active button
 
-    QVector<QString> _dayName = {"Пн", "Вт", "Ср", "Чт", "Пт", "Сб"};
+    std::array<QString, 6> _dayName = {"Пн", "Вт", "Ср", "Чт", "Пт", "Сб"};
+    std::array<QString, 7> _lessonTime = {" 9:00\n10:30", "10:40\n12:10", "12:40\n14:10", "14:20\n15:50",
+                                          "16:20\n17:50", "18:00\n19:30", "19:40\n21:00"};
     QVector<QVector<Lesson*>> _schedule;
 
 protected:
-    virtual void resizeEvent(QResizeEvent* event);      // switches layouts depending on the orientation of the device
+    void resizeEvent(QResizeEvent* event) override;      // switches layouts depending on the orientation of the device
 
 public slots:
     void slotDayButtonClicked();

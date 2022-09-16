@@ -26,8 +26,8 @@ public:
     Parser() = default;
 
     void readXLSX(const QString& directory, const QString& fileNameXLSX, int groupIndex);
+    static QStringList groups(const QString& directory, const QString& fileNameXLSX);   // return all groups from file   
     void writeXML(const QString& directory, const QString& fileNameXML);
-    static QStringList groups(const QString& directory, const QString& fileNameXLSX);
     static QVector<QVector<Lesson*>> readXML(const QString& directory, const QString& fileNameXML, int userSubgroup,
                                              int userWeek);
 

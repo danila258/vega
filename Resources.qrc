@@ -1,17 +1,18 @@
 <RCC>
     <qresource prefix="/">
-        <file alias="dayButton_Active.qss">Resources/Styles/dayButton_Active.qss</file>
-        <file alias="dayButton_Inactive.qss">Resources/Styles/dayButton_Inactive.qss</file>
-        <file alias="scheduleLabel.qss">Resources/Styles/scheduleLabel.qss</file>
-        <file alias="scheduleButton_Active.qss">Resources/Styles/scheduleButton_Active.qss</file>
-        <file alias="scheduleButton_Inactive.qss">Resources/Styles/scheduleButton_Inactive.qss</file>
-        <file alias="settingsButton_Active.qss">Resources/Styles/settingsButton_Active.qss</file>
-        <file alias="settingsButton_Inactive.qss">Resources/Styles/settingsButton_Inactive.qss</file>
+        <file alias="light_theme.qss">Resources/Styles/light_theme.qss</file>
+        <file alias="dark_theme.qss">Resources/Styles/dark_theme.qss</file>
     </qresource>
-    <qresource prefix="/Icons">
-        <file alias="calendar_fill.svg">Resources/Icons/calendar_fill.svg</file>
-        <file alias="calendar.svg">Resources/Icons/calendar.svg</file>
-        <file alias="settings_fill.svg">Resources/Icons/settings_fill.svg</file>
-        <file alias="_settings.svg">Resources/Icons/settings.svg</file>
+    <qresource prefix="/Icons/Light">
+        <file>Resources/Icons/Light/settings_fill.svg</file>
+        <file>Resources/Icons/Light/settings.svg</file>
+        <file>Resources/Icons/Light/schedule_fill.svg</file>
+        <file>Resources/Icons/Light/schedule.svg</file>
+    </qresource>
+    <qresource prefix="/Icons/Dark">
+        <file>Resources/Icons/Dark/settings_fill.svg</file>
+        <file>Resources/Icons/Dark/settings.svg</file>
+        <file>Resources/Icons/Dark/schedule_fill.svg</file>
+        <file>Resources/Icons/Dark/schedule.svg</file>
     </qresource>
 </RCC>

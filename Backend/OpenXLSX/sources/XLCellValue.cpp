@@ -35,7 +35,7 @@ XLCellValue::XLCellValue(OpenXLSX::XLCellValue&& other) noexcept = default;
 
 /**
  * @details Destructor. The default implementation will be used
- * @pre None.
+ * @pre NONE.
  * @post The object is destructed.
  */
 XLCellValue::~XLCellValue() = default;
