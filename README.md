@@ -22,6 +22,7 @@ A cross-platform scheduling application for MIREA students running on desktop an
 
 ## Features
 List the ready features here:
+- Cross platform
 - Automatic schedule update
 - Offline work
 - Dark theme
