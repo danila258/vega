@@ -1,0 +1,72 @@
+scheduleLabel 
+{
+    background-color: black;
+    border-radius: 20px;
+    border-style: outset;
+    padding: 5px;
+    min-height: 40px;
+    max-height: 40px;
+}
+
+
+dayButton 
+{
+    background-color: black;
+    color: white;
+    border-radius: 25px;
+    border-style: outset;
+    min-height: 50px;
+    max-height: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+
+dayButton:checked 
+{
+    background-color: white;
+    color: black;
+    border-radius: 25px;
+    border-style: outset;
+    min-height: 50px;
+    max-height: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+
+
+scheduleButton 
+{
+    border-image: url(:/Icons/Dark/Resources/Icons/Dark/schedule.svg);
+    min-height: 48px;
+    max-height: 48px;
+    min-width: 48px;
+    max-width: 48px;
+}
+
+scheduleButton:checked 
+{
+    border-image: url(:/Icons/Dark/Resources/Icons/Dark/schedule_fill.svg);
+    min-height: 48px;
+    max-height: 48px;
+    min-width: 48px;
+    max-width: 48px;   
+}
+
+
+settingsButton 
+{
+    border-image: url(:/Icons/Dark/Resources/Icons/Dark/settings.svg);
+    min-height: 48px;
+    max-height: 48px;
+    min-width: 48px;
+    max-width: 48px;
+}
+
+settingsButton:checked 
+{
+    border-image: url(:/Icons/Dark/Resources/Icons/Dark/settings_fill.svg);
+    min-height: 48px;
+    max-height: 48px;
+    min-width: 48px;
+    max-width: 48px;   
+}

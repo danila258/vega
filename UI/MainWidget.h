@@ -3,6 +3,7 @@
 
 #include "ScheduleTab.h"
 #include "SettingsTab.h"
+#include "CustomElements.h"
 #include "CommonFunctions.h"
 #include "Backend/Parser.h"
 #include "Backend/Downloader.h"
@@ -10,53 +11,20 @@
 #include <QStandardPaths>
 #include <QApplication>
 #include <QSettings>
-#include <QEvent>
+#include <QTimer>
 
-
-class tabButton : public QPushButton
+enum
 {
-    Q_OBJECT
+    SCHEDULE_TAB_INDEX = 0,
+    SETTINGS_TAB_INDEX = 1,
 
-public:
-    tabButton(QString inactiveStyle, QString activeStyle, QWidget* parent = nullptr);
+    START_UP_THEME,
+    LIGHT_THEME,
+    DARK_THEME,
 
-    void setInactiveStyle();        // it turns accent color
-    void setActiveStyle();          // it turns white
+    MAX_WEEK_NUMBER = 20,
 
-    int getIndex();
-
-protected:
-    int _index;                     // index in layout
-
-private:
-    QString _activeStyle;
-    QString _inactiveStyle;
-};
-
-
-class scheduleButton : public tabButton
-{
-    Q_OBJECT
-
-public:
-    scheduleButton(QWidget* parent = nullptr)
-        : tabButton(":/scheduleButton_Inactive.qss", ":/scheduleButton_Active.qss", parent)
-    {
-        _index = 0;
-    }
-};
-
-
-class settingsButton : public tabButton
-{
-    Q_OBJECT
-
-public:
-    settingsButton(QWidget* parent = nullptr)
-        : tabButton(":/settingsButton_Inactive.qss", ":/settingsButton_Active.qss", parent)
-    {
-        _index = 1;
-    }
+    EXTRA_SIZE = 120
 };
 
 
@@ -71,47 +39,34 @@ private:
     QHBoxLayout* createTabBarLayout();      // bottom buttons
     void appConfig();                       // load settings and check app directory
     void saveSettingsFromTab();
+    void calulateCurrentWeekNumber();
 
     QVBoxLayout* _mainLayout;
-    ScheduleTab* _scheduleTab;
+
     int _currentTabIndex;
+    int _appTheme = START_UP_THEME;
+    bool _showEmptyLessons;
 
     QSettings _settings;
     QString _standardPath;      // app directory
-    QString _url;
+    QString _url;               // url for download schedule
     int _groupIndex;
     int _subgroup;
-    int _week;
 
-    QString _fileNameXLSX = "Schedule.xlsx";
-    QString _fileNameXML = "Data.xml";
+    QDate _date;                // when user change week in settings
+    int _week;                  // what week select user when last change
+    int _currentWeekNumber;     // calculated using _date and _week
+
+    QString _fileNameXLSX = "Schedule.xlsx";    // downloaded from vega
+    QString _fileNameXML = "Data.xml";          // created after parsing .xlsx
 
 protected:
     void closeEvent(QCloseEvent* event) override;
 
-    void paletteEvent(QEvent* event)
-    {
-            qDebug() << event->type();
-    }
-
-    void palette2Event(QEvent* event)
-    {
-        if (event->type() == QEvent::StyleChange)
-        {
-            qDebug() << "смена темы 2";
-        }
-    }
-
-    void palette3Event(QEvent* event)
-    {
-        if (event->type() == QEvent::UpdateRequest)
-        {
-            qDebug() << "смена темы 3";
-        }
-    }
-
 private slots:
-    void slotTabButtonClicked();
+    void slotScheduleButtonClicked();
+    void slotSettingsButtonClicked();
+    void slotCheckSystemTheme();        // check background color of application
 };
 
 

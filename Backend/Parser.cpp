@@ -6,21 +6,25 @@ void Parser::readXLSX(const QString& directory, const QString& fileNameXLSX, int
 
     XLDocument doc;
     doc.open( directory.toStdString() + "/" + fileNameXLSX.toStdString() );
-    auto table = doc.workbook().worksheet("Table 1");
+    auto table = doc.workbook().worksheet("Занятия");
 
-    int dayIndex = 0;
+    int dayIndex = -1;
     int count = 0;
     int number = 0;
     int rowCount = table.rowCount();
     int factor = groupIndex;
     bool cabinetFlag = false;
 
-    for ( auto& row : table.rows(3, rowCount - 2) )
+    for ( auto& row : table.rows(3, rowCount - 3) )
     {
         if (row.cells(2, 2).begin()->value().typeAsString() == "integer")
         {
             number = row.cells(2, 2).begin()->value().get<int>();
-            ++count;
+
+            if (number == 1)
+            {
+                ++dayIndex;
+            }
         }
 
         for ( auto& rowCell : row.cells(3 + factor * 2, 4 + factor * 2) )
@@ -49,11 +53,6 @@ void Parser::readXLSX(const QString& directory, const QString& fileNameXLSX, int
                 cabinetFlag = false;
             }
         }
-
-        if (count % 6 == 0)
-        {
-            ++dayIndex;
-        }
     }
 
     doc.close();
@@ -63,19 +62,18 @@ QStringList Parser::groups(const QString& directory, const QString& fileNameXLSX
 {
     XLDocument doc;
     doc.open( directory.toStdString() + "/" + fileNameXLSX.toStdString() );
-    auto _table = doc.workbook().worksheet("Table 1");
+    auto _table = doc.workbook().worksheet("Занятия");
 
     QStringList allGroups;
-    QList tokens = QString::fromStdString( _table.row(2).cells(1).begin()->value().get<std::string>() ).split(" ");
 
-    for (auto& item : tokens)
+    for (auto& item : _table.row(2).cells())
     {
-        if ( item.isEmpty() )
-        {
-            continue;
-        }
+        QString line = QString::fromStdString( item.value().get<std::string>() );
 
-        allGroups.append(item);
+        if ( line.length() > 4 || !line.isEmpty() )
+        {
+            allGroups.append(line);
+        }
     }
 
     doc.close();
@@ -88,7 +86,7 @@ void Parser::writeXML(const QString& directory, const QString& fileNameXML)
 
     if ( !file.open(QIODevice::WriteOnly) )
     {
-        return;
+        throw std::runtime_error("XML file open error");
     }
 
     QXmlStreamWriter stream(&file);
@@ -201,7 +199,7 @@ QVector<QVector<Lesson*>> Parser::readXML(const QString& directory, const QStrin
 
     if ( !file.open(QIODevice::ReadOnly) )
     {
-        //return;
+        throw std::runtime_error("XML file open error");
     }
 
     QXmlStreamReader stream(&file);

@@ -6,12 +6,12 @@ Downloader::Downloader(const QString& fileName, const QString& filePath)
 
 QString Downloader::getDownloadUrl()
 {
-    QNetworkReply* reply = _manager.get(QNetworkRequest(QUrl(_url)));
+    QNetworkReply* reply = _manager.get( QNetworkRequest(QUrl(_url)) );
     connect(reply, SIGNAL( finished() ), SLOT( slotDownloadSiteFinished() ));
     connect(reply, &QNetworkReply::errorOccurred, this, &Downloader::slotDownloadError);
 
     QEventLoop pause;
-    connect(this, SIGNAL(resumeWork()), &pause, SLOT(quit()));
+    connect(this, SIGNAL( resumeWork() ), &pause, SLOT( quit() ));
     pause.exec();
 
     QTextStream stream(&_htmlSite);
@@ -26,7 +26,7 @@ QString Downloader::getDownloadUrl()
         }
     }
 
-    return " ";
+    return "";
 }
 
 void Downloader::downloadFile(const QString& url)
@@ -47,22 +47,23 @@ QString Downloader::parsingLine(const QString& line)
 
     for (auto& item : line)
     {
-        if (item == '\"' && !flag)
+        if (flag)
         {
-            flag = true;
-        }
-        else if (flag)
-        {
-            if (item == '\"')
+            if (item == '>')
             {
                 return link;
             }
 
             link.push_back(item);
         }
+        else if (item == '=')
+        {
+            flag = true;
+        }
+
     }
 
-    return " ";
+    return "";
 }
 
 void Downloader::slotDownloadSiteFinished()
@@ -70,7 +71,7 @@ void Downloader::slotDownloadSiteFinished()
     _htmlSite = qobject_cast<QNetworkReply*>(sender())->readAll();
     sender()->deleteLater();
 
-    emit( resumeWork() );
+    emit( Downloader::resumeWork() );
 }
 
 void Downloader::slotDownloadFileFinished()
@@ -79,15 +80,15 @@ void Downloader::slotDownloadFileFinished()
 
     if ( !file.open(QIODevice::WriteOnly) )
     {
-        //return;
+        throw std::runtime_error("file with site open error");
     }
 
-    file.write( qobject_cast<QNetworkReply*>(sender())->readAll() );
+    file.write( qobject_cast<QNetworkReply*>( sender())->readAll() );
 
     emit( resumeWork() );
 }
 
 void Downloader::slotDownloadError()
 {
-    //return
+    qDebug() << "no internet";
 }

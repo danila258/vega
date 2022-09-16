@@ -3,6 +3,8 @@
 
 CMakeLists.txt.user
 
+cmake-build-debug/
+
 *~
 *.autosave
 *.a

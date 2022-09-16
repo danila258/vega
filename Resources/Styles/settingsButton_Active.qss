@@ -1,9 +1,0 @@
-border-image: url(:/Icons/settings_fill.svg);
-background-color: white;
-border-radius: 20px;
-border-style: outset;
-padding: 5px;
-min-height: 40px;
-max-height: 40px;
-min-width: 40px;
-max-width: 40px;

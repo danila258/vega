@@ -15,8 +15,8 @@ class Downloader : public QObject
 public:
     Downloader(const QString& fileName, const QString& filePath);
 
-    QString getDownloadUrl();      // download site and search url in file
-    void downloadFile(const QString& url);
+    QString getDownloadUrl();                            // download site and search url in file
+    void downloadFile(const QString& url);               // download .xlsx
 
 private:
     static QString parsingLine(const QString& line);     // search url in line
@@ -25,7 +25,7 @@ private:
     QString _htmlSite;
     QString _fileNameXLSX;
     QString _standardPath;
-    QString _url = "https://vega.fcyb.mirea.ru";
+    QString _url = "https://vega.fcyb.mirea.ru/new/main/";
 
 private slots:
     void slotDownloadSiteFinished();
