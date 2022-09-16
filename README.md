@@ -2,7 +2,7 @@
 A cross-platform sheduling application for MIREA students running on desktop and mobile devices.
 
 
-![image](https://drive.google.com/uc?export=view&id=<1MFjsYxMI363i4cZwvsMLhhjbxnVtxekB>)
+![image](https://drive.google.com/uc?export=view&id=1MFjsYxMI363i4cZwvsMLhhjbxnVtxekB)
 
 
 ## Table of Contents
