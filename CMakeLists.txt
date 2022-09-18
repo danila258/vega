@@ -48,10 +48,13 @@ if(APPLE)
         ${PROJECT_SOURCES}
     )
 elseif(ANDROID)
-    include(${ANDROID_SDK_ROOT}/android_openssl/CMakeLists.txt)
-    set_target_properties(Vega PROPERTIES
-        QT_ANDROID_EXTRA_LIBS "${ANDROID_EXTRA_LIBS}"
-    )
+    #include(${ANDROID_SDK_ROOT}/android_openssl/CMakeLists.txt)
+    #include(./Backend/android_openssl/CMakeLists.txt)
+
+    set(ANDROID_EXTRA_LIBS
+        ./Backend/android_openssl/latest/arm64/libcrypto_1_1.so
+        ./Backend/android_openssl/latest/arm64/libssl_1_1.so
+    CACHE INTERNAL "")
 
     qt_add_executable(Vega
         ${PROJECT_SOURCES}
@@ -74,7 +77,6 @@ endif()
 target_link_libraries(Vega PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Network
-    Qt${QT_VERSION_MAJOR}::Concurrent
     OpenXLSX::OpenXLSX
 )
 

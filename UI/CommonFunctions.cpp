@@ -20,3 +20,4 @@ bool checkOrientation(const QWidget* widget)
 
         return false;
 }
+
