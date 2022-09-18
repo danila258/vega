@@ -4,6 +4,7 @@ A cross-platform scheduling application for MIREA students running on desktop an
 
 <p align="center">
   <img src = "https://drive.google.com/uc?export=view&id=1MFjsYxMI363i4cZwvsMLhhjbxnVtxekB" width=350>
+  <img src = "https://drive.google.com/uc?export=view&id=1ae52CZgoTDfw9CzMq-MFeAtHAjqUskTM" width=350>
 </p>
 
 
