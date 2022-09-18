@@ -48,13 +48,7 @@ if(APPLE)
         ${PROJECT_SOURCES}
     )
 elseif(ANDROID)
-    #include(${ANDROID_SDK_ROOT}/android_openssl/CMakeLists.txt)
-    #include(./Backend/android_openssl/CMakeLists.txt)
-
-    set(ANDROID_EXTRA_LIBS
-        ./Backend/android_openssl/latest/arm64/libcrypto_1_1.so
-        ./Backend/android_openssl/latest/arm64/libssl_1_1.so
-    CACHE INTERNAL "")
+    include(${ANDROID_SDK_ROOT}/android_openssl/CMakeLists.txt)
 
     qt_add_executable(Vega
         ${PROJECT_SOURCES}
