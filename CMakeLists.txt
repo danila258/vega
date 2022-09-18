@@ -58,14 +58,16 @@ elseif(${CMAKE_HOST_SYSTEM_NAME} MATCHES "Linux")
         ${PROJECT_SOURCES}
     )
 elseif(${CMAKE_HOST_SYSTEM_NAME} MATCHES "Windows")
+    set (WIN32_RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Resources/VegaIcon/Windows/icon.rc)
+
     qt_add_executable(Vega
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
-    )
+            ${WIN32_RESOURCES}
+            ${PROJECT_SOURCES}
+            )
 
     set_target_properties(Vega PROPERTIES
-        WIN32_EXECUTABLE TRUE
-    )
+            WIN32_EXECUTABLE TRUE
+            )
 endif()
 
 target_link_libraries(Vega PRIVATE
