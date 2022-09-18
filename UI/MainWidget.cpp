@@ -140,7 +140,7 @@ void MainWidget::saveSettingsFromTab()
     _groupIndex = settings->getGroupIndex();
     _subgroup = settings->getSubgroup();
 
-    if ( QDateTime::currentDateTime().date().dayOfWeek() == Qt::Sunday && _currentWeekNumber == settings->getWeek() )
+    if (QDateTime::currentDateTime().date().dayOfWeek() == Qt::Sunday && settings->getWeek() == _currentWeekNumber)
     {
         _week = settings->getWeek() - 1;
     }
@@ -161,7 +161,7 @@ void MainWidget::calulateCurrentWeekNumber()
 
     _currentWeekNumber = currentDate.weekNumber() - _date.weekNumber() + _week;
 
-    if (currentDate.dayOfWeek() == Qt::Sunday && _currentWeekNumber == currentDate.weekNumber() - _date.weekNumber() + _week )
+    if (currentDate.dayOfWeek() == 7)
     {
         ++_currentWeekNumber;
     }
