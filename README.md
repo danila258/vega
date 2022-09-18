@@ -31,15 +31,14 @@ List the ready features here:
 
 
 ## Build
-Build it in Qt Creator.
+Fork the repository and import to Qt Creator.
+If you use linux, in order to install the application icon, you need:
 
-### Linux
-To install the app icon you need to:
-1. Build the application and move the resulting binary file to the `/usr/bin/`
-2. From `Vega/src/Resources/VegaIcon/Linux/` move `Vega.svg` to `/usr/share/icons/hicolor/scalable/apps/` 
-   and `vega.desktop` to `/usr/share/applications/` this requires superuser rights
-3. Run Vega from `/usr/bin/`
+1. Assemble the application and move the resulting binary file to the `/usr/bin`.
+2. From `Vega/Resources/VegaIcon/Linux` move `Vega.svg` to `/usr/share/icons/hicolor mode/scalable/apps/` 
+   and `Vega.desktop` to `/usr/shares/applications/` this requires superuser rights.
+3. Run Vega from `/usr/bin`.
 
 
 ## License
-LGPL-2.1
+LGPL
