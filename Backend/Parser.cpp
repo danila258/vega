@@ -15,7 +15,7 @@ void Parser::readXLSX(const QString& directory, const QString& fileNameXLSX, int
     int factor = groupIndex;
     bool cabinetFlag = false;
 
-    for ( auto& row : table.rows(3, rowCount - 3) )
+    for ( auto& row : table.rows(3, 76) )
     {
         if (row.cells(2, 2).begin()->value().typeAsString() == "integer")
         {
@@ -273,16 +273,6 @@ QVector<QVector<Lesson*>> Parser::readXML(const QString& directory, const QStrin
                     schedule[index].push_back(new Lesson{number.toInt(), name, cabinet});
                 }
             }
-        }
-    }
-
-    for (auto& a : schedule)
-    {
-        qDebug() << a.length();
-
-        for (auto& b : a)
-        {
-            qDebug() << b->_name;
         }
     }
 
