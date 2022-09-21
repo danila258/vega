@@ -139,7 +139,16 @@ void MainWidget::saveSettingsFromTab()
 
     _groupIndex = settings->getGroupIndex();
     _subgroup = settings->getSubgroup();
-    _week = settings->getWeek();
+
+    if (QDateTime::currentDateTime().date().dayOfWeek() == Qt::Sunday && settings->getWeek() == _currentWeekNumber)
+    {
+        _week = settings->getWeek() - 1;
+    }
+    else
+    {
+        _week = settings->getWeek();
+    }
+
     _date = QDateTime::currentDateTime().date();
     _showEmptyLessons = settings->getShowEmptyLessons();
 
@@ -150,13 +159,16 @@ void MainWidget::calulateCurrentWeekNumber()
 {
     QDate currentDate = QDateTime::currentDateTime().date();
 
-    if (currentDate.year() - _date.year() != 0 && currentDate.weekNumber() - _date.weekNumber() < 0)
+    _currentWeekNumber = currentDate.weekNumber() - _date.weekNumber() + _week;
+
+    if (currentDate.dayOfWeek() == 7)
+    {
+        ++_currentWeekNumber;
+    }
+
+    if (_currentWeekNumber < 1 || _currentWeekNumber > MAX_WEEK_NUMBER)
     {
         _currentWeekNumber = MAX_WEEK_NUMBER;
-    }
-    else
-    {
-        _currentWeekNumber = currentDate.weekNumber() - _date.weekNumber() + _week;
     }
 }
 

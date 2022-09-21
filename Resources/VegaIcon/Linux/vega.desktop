@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Vega
+Exec=/usr/bin/Vega
+Icon=/usr/share/icons/hicolor/scalable/apps/Vega.svg
+Terminal=false
+Categories=GNOME;Application;
+StartupNotify=true
+

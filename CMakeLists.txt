@@ -11,8 +11,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Network Concurrent)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network Concurrent)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Network)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network)
 
 qt_add_resources(SOURCES Resources.qrc)
 
@@ -49,9 +49,6 @@ if(APPLE)
     )
 elseif(ANDROID)
     include(${ANDROID_SDK_ROOT}/android_openssl/CMakeLists.txt)
-    set_target_properties(Vega PROPERTIES
-        QT_ANDROID_EXTRA_LIBS "${ANDROID_EXTRA_LIBS}"
-    )
 
     qt_add_executable(Vega
         ${PROJECT_SOURCES}
@@ -61,20 +58,21 @@ elseif(${CMAKE_HOST_SYSTEM_NAME} MATCHES "Linux")
         ${PROJECT_SOURCES}
     )
 elseif(${CMAKE_HOST_SYSTEM_NAME} MATCHES "Windows")
+    set (WIN32_RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Resources/VegaIcon/Windows/icon.rc)
+
     qt_add_executable(Vega
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
-    )
+            ${WIN32_RESOURCES}
+            ${PROJECT_SOURCES}
+            )
 
     set_target_properties(Vega PROPERTIES
-        WIN32_EXECUTABLE TRUE
-    )
+            WIN32_EXECUTABLE TRUE
+            )
 endif()
 
 target_link_libraries(Vega PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Network
-    Qt${QT_VERSION_MAJOR}::Concurrent
     OpenXLSX::OpenXLSX
 )
 
