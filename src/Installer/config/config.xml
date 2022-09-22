@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>Vega</Name>
+    <Version>1.1.0</Version>
+    <Title>Vega Installer</Title>
+    <InstallerWindowIcon>Vega.png</InstallerWindowIcon>
+    <Publisher>Danila Sidorov</Publisher>
+    <ProductUrl>https://github.com/danila258/Vega</ProductUrl>
+    <StartMenuDir>Vega</StartMenuDir>
+    <TargetDir>@ApplicationsDirUser@/Vega</TargetDir>
+    <RunProgram>@TargetDir@/Vega</RunProgram>
+</Installer>

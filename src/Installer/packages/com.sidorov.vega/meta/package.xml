@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>Vega</DisplayName>
+    <Description>Install Vega</Description>
+    <Version>1.1.0</Version>
+    <ReleaseDate>2022-09-22</ReleaseDate>
+    <Licenses>
+        <License name="LGPL-2.1" file="LICENSE.md" />
+    </Licenses>
+    <Default>true</Default>
+    <Script>installscript.qs</Script>
+</Package>
