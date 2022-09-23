@@ -42,4 +42,4 @@ To install the app icon you need to:
 
 
 ## License
-LGPL
+LGPL-2.1
