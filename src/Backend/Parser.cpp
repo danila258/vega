@@ -5,8 +5,18 @@ void Parser::readXLSX(const QString& directory, const QString& fileNameXLSX, int
     _rawSchedule.resize(6);
 
     XLDocument doc;
-    doc.open( directory.toStdString() + "/" + fileNameXLSX.toStdString() );
-    auto table = doc.workbook().worksheet("Занятия");
+    XLWorksheet table;
+
+    try
+    {
+        doc.open( directory.toStdString() + "/" + fileNameXLSX.toStdString() );
+        table = doc.workbook().worksheet("Занятия");
+    }
+    catch (...)
+    {
+        throw;
+    }
+
 
     int dayIndex = -1;
     int count = 0;
@@ -61,12 +71,21 @@ void Parser::readXLSX(const QString& directory, const QString& fileNameXLSX, int
 QStringList Parser::groups(const QString& directory, const QString& fileNameXLSX)
 {
     XLDocument doc;
-    doc.open( directory.toStdString() + "/" + fileNameXLSX.toStdString() );
-    auto _table = doc.workbook().worksheet("Занятия");
+    XLWorksheet table;
+
+    try
+    {
+        doc.open( directory.toStdString() + "/" + fileNameXLSX.toStdString() );
+        table = doc.workbook().worksheet("Занятия");
+    }
+    catch (...)
+    {
+        throw;
+    }
 
     QStringList allGroups;
 
-    for (auto& item : _table.row(2).cells())
+    for (auto& item : table.row(2).cells())
     {
         QString line = QString::fromStdString( item.value().get<std::string>() );
 

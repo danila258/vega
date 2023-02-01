@@ -26,7 +26,7 @@ QString Downloader::getDownloadUrl()
         }
     }
 
-    return "";
+    throw std::runtime_error("no download link on site");
 }
 
 void Downloader::downloadFile(const QString& url)
@@ -63,7 +63,7 @@ QString Downloader::parsingLine(const QString& line)
 
     }
 
-    return "";
+    throw std::runtime_error("no download link in line");
 }
 
 void Downloader::slotDownloadSiteFinished()
@@ -80,7 +80,7 @@ void Downloader::slotDownloadFileFinished()
 
     if ( !file.open(QIODevice::WriteOnly) )
     {
-        throw std::runtime_error("file with site open error");
+        throw std::runtime_error("file from site open error");
     }
 
     file.write( qobject_cast<QNetworkReply*>( sender())->readAll() );

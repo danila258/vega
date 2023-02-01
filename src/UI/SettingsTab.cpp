@@ -1,7 +1,7 @@
 #include "SettingsTab.h"
 
 SettingsTab::SettingsTab(const QStringList& groups, int groupIndex, int subgroup, int week, int maxWeekNumber,
-                         bool showEmptyLessons, QWidget* parent) : QWidget(parent), _showEmptyLessons(showEmptyLessons)
+                         bool showEmptyLessons, QWidget* parent, bool showGroups) : QWidget(parent), _showEmptyLessons(showEmptyLessons)
 {
     QFormLayout* settingsLayout = new QFormLayout();
 
@@ -16,8 +16,10 @@ SettingsTab::SettingsTab(const QStringList& groups, int groupIndex, int subgroup
     connect(showEmptyLessonsComboBox, SIGNAL( currentIndexChanged(int) ), SLOT( slotShowEmptyLessons(int) ));
 
     groupComboBox->addItems(groups);
+    groupComboBox->setDisabled(showGroups);
+
     subgroupComboBox->addItems( {"1", "2"} );
-    showEmptyLessonsComboBox->addItems( {"Нет" , "Да"});
+    showEmptyLessonsComboBox->addItems( {"Нет", "Да"} );
 
     for (int i = 1; i < maxWeekNumber + 1; ++i)
     {

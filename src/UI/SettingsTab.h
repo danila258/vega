@@ -21,7 +21,7 @@ class SettingsTab : public QWidget
 
 public:
     SettingsTab(const QStringList& groups, int groupIndex, int subgroup, int week, int maxWeekNumber,
-                bool showEmptyLessons, QWidget* parent = nullptr);
+                bool showEmptyLessons, QWidget* parent = nullptr, bool showGroups = true);
 
     int getGroupIndex() const;
     int getSubgroup() const;

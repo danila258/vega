@@ -34,6 +34,7 @@ class MainWidget : public QWidget
 
 public:
     explicit MainWidget(QWidget* parent = nullptr);
+    ~MainWidget();
 
 private:
     QHBoxLayout* createTabBarLayout();      // bottom buttons
@@ -45,6 +46,7 @@ private:
 
     int _currentTabIndex;
     int _appTheme = START_UP_THEME;
+    QTimer* _timer;
     bool _showEmptyLessons;
 
     QSettings _settings;

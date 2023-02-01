@@ -19,6 +19,19 @@ ScheduleTab::ScheduleTab(const QVector<QVector<Lesson*>>& schedule, bool showEmp
     setLayout(_scheduleTabLayout);
 }
 
+ScheduleTab::~ScheduleTab()
+{
+    delete _scheduleTabLayout;
+
+    for (auto&& day : _schedule)
+    {
+        for (auto&& lesson : day)
+        {
+            delete lesson;
+        }
+    }
+}
+
 QHBoxLayout* ScheduleTab::createDayBarLayout() {
     QHBoxLayout* dayBarLayout = new QHBoxLayout();
 

@@ -29,6 +29,7 @@ class ScheduleTab : public QWidget
 
 public:
     explicit ScheduleTab(const QVector<QVector<Lesson*>>& schedule, bool showEmptyLessons, QWidget* parent = nullptr);
+    ~ScheduleTab();
 
 private:
     QHBoxLayout* createDayBarLayout();       // top buttons

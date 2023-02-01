@@ -18,9 +18,9 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent), _mainLayout( new QVBo
     Parser parser;
 
     slotCheckSystemTheme();
-    QTimer* timer = new QTimer(this);
-    connect(timer, SIGNAL( timeout() ), this, SLOT( slotCheckSystemTheme() ));
-    timer->start(100);
+    _timer = new QTimer(this);
+    connect(_timer, SIGNAL( timeout() ), this, SLOT( slotCheckSystemTheme() ));
+    _timer->start(100);
 
     try
     {
@@ -62,6 +62,12 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent), _mainLayout( new QVBo
     }
 
     setLayout(_mainLayout);
+}
+
+MainWidget::~MainWidget()
+{
+    delete _mainLayout;
+    delete _timer;
 }
 
 QHBoxLayout* MainWidget::createTabBarLayout()
@@ -216,8 +222,14 @@ void MainWidget::slotScheduleButtonClicked()
     this->saveSettingsFromTab();
 
     Parser parser;
-    parser.readXLSX(_standardPath, _fileNameXLSX, _groupIndex);
-    parser.writeXML(_standardPath, _fileNameXML);
+
+    try
+    {
+        parser.readXLSX(_standardPath, _fileNameXLSX, _groupIndex);
+        parser.writeXML(_standardPath, _fileNameXML);
+    }
+    catch (...)
+    {}
 
     _mainLayout->replaceWidget(_mainLayout->itemAt(0)->widget(), new ScheduleTab(
             Parser::readXML(_standardPath, _fileNameXML, _subgroup, _currentWeekNumber), _showEmptyLessons, this))
@@ -241,9 +253,24 @@ void MainWidget::slotSettingsButtonClicked()
     }
 
     Parser parser;
-    _mainLayout->replaceWidget(_mainLayout->itemAt(0)->widget(), new SettingsTab(
-            Parser::groups(_standardPath, _fileNameXLSX), _groupIndex, _subgroup, _currentWeekNumber,
-            MAX_WEEK_NUMBER, _showEmptyLessons, this))->widget()->deleteLater();
+    QStringList groups;
+    bool showGroups = true;
+
+    try
+    {
+        groups = Parser::groups(_standardPath, _fileNameXLSX);
+    }
+    catch (...)
+    {
+        showGroups = false;
+    }
+
+    SettingsTab* tab = new SettingsTab(groups, _groupIndex, _subgroup, _currentWeekNumber, MAX_WEEK_NUMBER,
+                                       _showEmptyLessons, this);
+
+    _mainLayout->replaceWidget(_mainLayout->itemAt(0)->widget(),
+                               new SettingsTab(groups, _groupIndex, _subgroup, _currentWeekNumber,
+                               MAX_WEEK_NUMBER, _showEmptyLessons, this, showGroups))->widget()->deleteLater();
 
     qobject_cast<scheduleButton*>( _mainLayout->itemAt(1)->layout()->itemAt(SCHEDULE_TAB_INDEX)->widget() )
                                    ->setChecked(false);

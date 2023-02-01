@@ -3,7 +3,9 @@
 
 CMakeLists.txt.user
 
-cmake-build-debug/
+*cmake-build-debug
+*build-src*
+*.idea
 
 *~
 *.autosave
