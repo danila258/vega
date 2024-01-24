@@ -1,5 +1,5 @@
 # Vega
-A cross-platform scheduling application for MIREA students which works on desktop and in the future mobile devices.
+A cross-platform scheduling application for MIREA students which works on desktop.
 
 
 <p align="center">
